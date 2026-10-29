@@ -1,0 +1,145 @@
+---
+title: "Aula 2 - Tipos de dados"
+format: html
+---
+
+# pacotes
+```{r}
+library(tidyverse)
+
+# chamada explícita
+filter(starwars, species == "Human")
+
+```
+
+
+
+# Tipos de dados
+## Escalar
+
+```{r}
+esc <- 10
+esc * 2
+esc / 9
+```
+
+## Vetores
+### Numéricos
+```{r}
+# criar um vetor numérico
+num <- c(10, 2.5, 4, esc)
+num2 <- c(3, 4, 2, 2)
+sort(num)
+
+sort(num, decreasing = TRUE)
+
+typeof(num)
+
+# operação com vetor e escalar
+num + esc
+num / esc
+num * esc
+num - esc
+num ^ esc
+
+# operação pairwise/element-wise
+num + num2
+num - num2
+num * num2
+num / num2
+
+# Reciclagem (operação reciclada)
+num3 <- c(num, num2)
+num * num3
+
+```
+
+### Caracteres/fatores/lógicos
+
+```{r}
+char <- c("t1", "t2", "t3")
+typeof(char)
+
+
+char2 <- c("pequeno", "médio", "grande", "gigante")
+# ordena em ordem alfabética
+sort(char2)
+
+# fator, ordena na ordem que eu escolher
+factor(char2, levels = char2)
+
+# fator numérico
+factor(num)
+```
+
+
+
+# Estruturas de dados
+## Data frames
+```{r}
+alunos <- 
+data.frame(
+  nome = c("tiago", "gabriela", "jamille", "ana", "richard", "cleibi"),
+  altura = c(191, 162, 169, 160, 190, 188),
+  cromossomo = factor(x = c("xy", "xx", "xx", "xx", "xy", "xy"), levels = c("xy", "xx"))
+)
+
+
+```
+
+## Matrizes
+```{r}
+# matriz com variável normal (média 30, dp = 4)
+set.seed(1)
+mat <- 
+matrix(data = rnorm(n = 16, mean = 30, sd = 4),
+       nrow = 4,
+       ncol = 4)
+
+
+# seleção de elementos
+alunos[4,2]
+
+# seleção de linhas
+alunos[3, ]
+
+# seleção de colunas
+alunos[, 2]
+```
+
+## Listas
+```{r}
+
+lista <- 
+  list(
+    dataframe = alunos,
+    matriz = mat,
+    escalar = esc,
+    numerico = num,
+    fator = factor(char),
+    lista = list(df = alunos, mat = mat, lista = list(a = alunos))
+  )
+
+# acessar a lista
+lista$dataframe
+lista$escalar
+
+# cria um armário novo com uma única gaveta
+ex1 <- lista[1]
+
+# tira o objeto da gaveta que está dentro do armário
+alunos2 <- lista[[1]]
+
+lista[[6]][[1]]
+lista$lista$df$altura
+
+# simular um excel com várias abas
+dados <- 
+  list(
+    aba1 = alunos, 
+    aba2 = alunos, 
+    aba3 = alunos
+  )
+```
+
+
